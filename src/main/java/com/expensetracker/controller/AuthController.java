@@ -8,9 +8,12 @@ import com.expensetracker.entity.User;
 import com.expensetracker.service.UserService;
 import com.expensetracker.security.JwtService;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:5173")   // allow React frontend
 public class AuthController {
 
     @Autowired
@@ -19,14 +22,16 @@ public class AuthController {
     @Autowired
     private UserService service;
 
+    // Register User
     @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody User user) {
+    public ResponseEntity<?> register(@RequestBody User user) {
 
         User newUser = service.register(user);
 
         return ResponseEntity.ok(newUser);
     }
 
+    // Login User
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {
 
@@ -36,9 +41,15 @@ public class AuthController {
 
             String token = jwtService.generateToken(u.getEmail());
 
-            return ResponseEntity.ok(token);
+            Map<String, String> response = new HashMap<>();
+            response.put("token", token);
+
+            return ResponseEntity.ok(response);
         }
 
-        return ResponseEntity.status(401).body("Invalid email or password");
+        Map<String, String> error = new HashMap<>();
+        error.put("message", "Invalid email or password");
+
+        return ResponseEntity.status(401).body(error);
     }
 }

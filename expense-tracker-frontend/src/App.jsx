@@ -1,22 +1,24 @@
-import AddExpense from "./components/AddExpense";
-import ExpenseList from "./components/ExpenseList";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./App.css";
 
-function App(){
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Dashboard from "./pages/Dashboard";
 
-return(
-
-<div>
-
-<h1>Expense Tracker</h1>
-
-<AddExpense/>
-
-<ExpenseList/>
-
-</div>
-
-)
-
+function App() {
+  return (
+    <BrowserRouter>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
