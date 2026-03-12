@@ -15,7 +15,8 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/**").permitAll()   // allow login & register
-                .requestMatchers("/expenses/**").permitAll() // temporary for testing
+                .requestMatchers("/expenses/**").permitAll()
+                .requestMatchers("/budgets/**").permitAll()
                 .anyRequest().authenticated()
             );
 

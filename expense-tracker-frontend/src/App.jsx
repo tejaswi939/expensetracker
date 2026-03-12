@@ -1,24 +1,38 @@
 import { useState } from "react";
 import AddExpense from "./components/AddExpense";
 import ExpenseList from "./components/ExpenseList";
+import BudgetManager from "./components/BudgetManager";
+import ReportView from "./components/ReportView";
 
-function App(){
+function App() {
 
 const [refreshKey, setRefreshKey] = useState(0);
 
-return(
+const refresh = () => setRefreshKey(k => k + 1);
 
-<div>
+return (
+
+<div style={{ padding: "20px", fontFamily: "sans-serif", maxWidth: "800px" }}>
 
 <h1>Expense Tracker</h1>
 
-<AddExpense onAdd={() => setRefreshKey(k => k + 1)}/>
+<AddExpense onAdd={refresh} />
 
-<ExpenseList refreshKey={refreshKey}/>
+<hr/>
+
+<ExpenseList refreshKey={refreshKey} onRefresh={refresh} />
+
+<hr/>
+
+<BudgetManager />
+
+<hr/>
+
+<ReportView />
 
 </div>
 
-)
+);
 
 }
 
