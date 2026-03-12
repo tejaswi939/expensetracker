@@ -1,21 +1,24 @@
 import { useState } from "react";
 import API from "../services/api";
 
-function AddExpense(){
+function AddExpense({ onAdd }){
 
 const [title,setTitle] = useState("");
 const [amount,setAmount] = useState("");
 const [category,setCategory] = useState("");
+const [date,setDate] = useState("");
 
 const submit = async () => {
 
 await API.post("/expenses",{
 title,
 amount,
-category
+category,
+date
 });
 
 alert("Expense Added");
+onAdd();
 
 };
 
@@ -38,6 +41,11 @@ onChange={(e)=>setAmount(e.target.value)}
 <input
 placeholder="Category"
 onChange={(e)=>setCategory(e.target.value)}
+/>
+
+<input
+type="date"
+onChange={(e)=>setDate(e.target.value)}
 />
 
 <button onClick={submit}>Add</button>

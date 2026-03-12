@@ -22,7 +22,8 @@ public class ExpenseService {
     public Expense saveExpense(Expense expense){
 
         // Fetch user from database
-        User user = userRepository.findById(1L).orElseThrow();
+        User user = userRepository.findById(1L)
+                .orElseThrow(() -> new RuntimeException("Default user not found. Please register a user first."));
 
         // Attach user to expense
         expense.setUser(user);

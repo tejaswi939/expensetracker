@@ -1,7 +1,10 @@
+import { useState } from "react";
 import AddExpense from "./components/AddExpense";
 import ExpenseList from "./components/ExpenseList";
 
 function App(){
+
+const [refreshKey, setRefreshKey] = useState(0);
 
 return(
 
@@ -9,9 +12,9 @@ return(
 
 <h1>Expense Tracker</h1>
 
-<AddExpense/>
+<AddExpense onAdd={() => setRefreshKey(k => k + 1)}/>
 
-<ExpenseList/>
+<ExpenseList refreshKey={refreshKey}/>
 
 </div>
 
